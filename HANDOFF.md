@@ -144,15 +144,27 @@ What it sends:
 
 Things that are load-bearing and easy to break:
 
-- **`no_onload` must stay set.** This is a single-page app; the automatic
-  pageview would only ever count the first panel, so `show()` sends them by
-  hand. Without `no_onload` the first panel is counted twice.
-- **Events are queued.** `count.js` is async and may never arrive at all
-  (ad blockers routinely stop it, and this site's audience runs them). The
-  queue flushes when it appears and is dropped after ~10s if it does not.
+- **There is no third-party script.** GoatCounter's `count.js` was tried and
+  never loaded: `gc.zgo.at` is on the standard privacy blocklists and the
+  counter subdomain did not serve it either, so every hit was queued and then
+  dropped. `count.js` is only a wrapper around a plain GET, so hits are sent
+  as an image request to `/count` instead. Fewer moving parts, nothing to
+  wait on, and the site keeps its no-dependencies property.
+- **Hits are sent by hand from `show()`.** This is a single-page app, so
+  there is no automatic pageview to rely on: without this only the first
+  panel of a visit would ever be counted.
+- **Query parameters** are GoatCounter's: `p` path, `t` title, `e=1` for an
+  event, `s` screen, `r` referrer on the first hit only, `rnd` cache buster.
 - **Global Privacy Control and Do Not Track are both honoured** before
-  anything loads. GPC is legally binding in several US states.
-- Tracking is the site's only third-party dependency besides Google Fonts.
+  anything is sent. GPC is legally binding in several US states. Note the
+  cost: a visitor using Brave or DuckDuckGo, which set GPC by default, is
+  invisible, and that is indistinguishable from never having visited.
+- **A domain-level block on goatcounter.com still stops everything.** That is
+  unavoidable for any third-party analytics. `__gcDebug()` reports `failed`
+  alongside `sent` so this stays visible rather than looking like no traffic.
+- **`__gcDebug()` in the console** is the diagnostic: it reports what is
+  configured, sent, failed, the last URL used, and whether GPC, DNT, or
+  GoatCounter's own-visit suppression is in play.
 
 ## Updating the live site
 

@@ -844,76 +844,59 @@ img{max-width:100%; display:block}
     var note = document.getElementById('privNote');
     if (note) note.hidden = false;
 
-    /* Loaded here rather than as a tag in <head> so that a visitor who has
-       opted out, or a site with tracking switched off, never touches the
-       analytics host at all. no_onload suppresses the automatic pageview
-       (this is a single-page app, panels are counted by hand); no_events
-       suppresses automatic click binding, which is done explicitly below. */
-    window.goatcounter = { no_onload: true, no_events: true, endpoint: GOATCOUNTER };
+    /* ── No third-party script ───────────────────────────────
+       This used to load GoatCounter's count.js. It never arrived:
+       gc.zgo.at is on the standard privacy blocklists and the
+       counter subdomain did not serve it either, so every hit was
+       queued and then dropped.
 
-    /* gc.zgo.at is a shared host and sits on the common privacy blocklists,
-       so it is the first thing an ad blocker drops. GoatCounter also serves
-       the same script from your own counter subdomain, which is far less
-       likely to be filtered. Try the CDN, fall back to the subdomain. */
-    var SOURCES = ['https://gc.zgo.at/count.js',
-                   GOATCOUNTER.replace(/\/count\/?$/, '/count.js')];
-    var srcIndex = 0;
+       count.js is only a convenience wrapper. The /count endpoint
+       takes a plain GET, so hits are sent as an image request
+       instead. That removes the external script altogether: one
+       less request, one less thing to block, one less dependency,
+       and no queue waiting on a load that may never happen.
 
-    function loadScript() {
-      if (srcIndex >= SOURCES.length) { scriptFailed = true; return; }
-      var s = document.createElement('script');
-      s.async = true;
-      s.src = SOURCES[srcIndex++];
-      s.setAttribute('data-goatcounter', GOATCOUNTER);
-      s.onerror = loadScript;              // blocked or offline: try the next one
-      document.head.appendChild(s);
-    }
-    loadScript();
-
-    var queue = [], tries = 0, timer = null, sent = 0;
-    var scriptFailed = false, gaveUp = false;
+       A domain-level block on goatcounter.com will still stop
+       these, which is unavoidable for any analytics that reports
+       to a third party. __gcDebug() shows failed as well as sent
+       so that case stays visible instead of looking like silence.
+       ─────────────────────────────────────────────────────── */
+    var sent = 0, failed = 0, last = null, firstHit = true;
 
     window.__gcDebug = function () {
       var skip = null;
       try { skip = localStorage.getItem('skipgc'); } catch (e) {}
       return {
-        configured:   GOATCOUNTER,
-        scriptLoaded: !!(window.goatcounter && window.goatcounter.count),
-        sent:         sent,
-        queued:       queue.length,
-        scriptFailed: scriptFailed,   // every source refused to load
-        gaveUp:       gaveUp,         // waited ~10s, then dropped the queue
-        triedSources: SOURCES.slice(0, srcIndex),
-        skipgcFlag:   skip,      // 't' means GoatCounter's "ignore my own visits" is on
-        gpc:          navigator.globalPrivacyControl === true,
-        dnt:          navigator.doNotTrack
+        configured: GOATCOUNTER,
+        sent:       sent,        // the endpoint answered
+        failed:     failed,      // request blocked or refused
+        lastUrl:    last,        // paste into a tab to test by hand
+        skipgcFlag: skip,        // 't' = GoatCounter's "ignore my own visits"
+        gpc:        navigator.globalPrivacyControl === true,
+        dnt:        navigator.doNotTrack
       };
     };
 
-    function ready() {
-      return window.goatcounter && typeof window.goatcounter.count === 'function';
-    }
-    function flush() {
-      if (!ready()) return false;
-      while (queue.length) {
-        try { window.goatcounter.count(queue.shift()); sent++; } catch (e) { /* never break the page */ }
-      }
-      if (timer) { clearInterval(timer); timer = null; }
-      return true;
-    }
-    function wait() {
-      if (timer || flush()) return;
-      timer = setInterval(function () {
-        // ~10s, then give up: the script is blocked and is not coming.
-        if (flush()) return;
-        if (++tries > 40) { clearInterval(timer); timer = null; gaveUp = true; queue.length = 0; }
-      }, 250);
-    }
-
     return function (path, isEvent) {
-      if (queue.length > 60) return;          // a stuck queue must not grow without bound
-      queue.push({ path: path, title: path, event: isEvent !== false });
-      wait();
+      if (sent + failed > 80) return;             // never unbounded
+      try {
+        var q = '?rnd=' + Math.random().toString(36).slice(2) +
+                '&p='   + encodeURIComponent(path) +
+                '&t='   + encodeURIComponent(path) +
+                '&s='   + [screen.width, screen.height, window.devicePixelRatio || 1].join(',');
+        if (isEvent !== false) q += '&e=1';
+        // Referrer is only meaningful for the first hit of a visit; after
+        // that the referrer is this page itself.
+        if (firstHit && document.referrer) q += '&r=' + encodeURIComponent(document.referrer);
+        firstHit = false;
+
+        last = GOATCOUNTER + q;
+        var img = new Image();
+        img.onload  = function () { sent++; };
+        img.onerror = function () { failed++; };
+        img.referrerPolicy = 'no-referrer-when-downgrade';
+        img.src = last;
+      } catch (e) { /* analytics must never break the page */ }
     };
   })();
 
