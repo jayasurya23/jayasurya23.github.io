@@ -850,13 +850,28 @@ img{max-width:100%; display:block}
        (this is a single-page app, panels are counted by hand); no_events
        suppresses automatic click binding, which is done explicitly below. */
     window.goatcounter = { no_onload: true, no_events: true, endpoint: GOATCOUNTER };
-    var s = document.createElement('script');
-    s.async = true;
-    s.src = 'https://gc.zgo.at/count.js';
-    s.setAttribute('data-goatcounter', GOATCOUNTER);
-    document.head.appendChild(s);
+
+    /* gc.zgo.at is a shared host and sits on the common privacy blocklists,
+       so it is the first thing an ad blocker drops. GoatCounter also serves
+       the same script from your own counter subdomain, which is far less
+       likely to be filtered. Try the CDN, fall back to the subdomain. */
+    var SOURCES = ['https://gc.zgo.at/count.js',
+                   GOATCOUNTER.replace(/\/count\/?$/, '/count.js')];
+    var srcIndex = 0;
+
+    function loadScript() {
+      if (srcIndex >= SOURCES.length) { scriptFailed = true; return; }
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = SOURCES[srcIndex++];
+      s.setAttribute('data-goatcounter', GOATCOUNTER);
+      s.onerror = loadScript;              // blocked or offline: try the next one
+      document.head.appendChild(s);
+    }
+    loadScript();
 
     var queue = [], tries = 0, timer = null, sent = 0;
+    var scriptFailed = false, gaveUp = false;
 
     window.__gcDebug = function () {
       var skip = null;
@@ -866,6 +881,9 @@ img{max-width:100%; display:block}
         scriptLoaded: !!(window.goatcounter && window.goatcounter.count),
         sent:         sent,
         queued:       queue.length,
+        scriptFailed: scriptFailed,   // every source refused to load
+        gaveUp:       gaveUp,         // waited ~10s, then dropped the queue
+        triedSources: SOURCES.slice(0, srcIndex),
         skipgcFlag:   skip,      // 't' means GoatCounter's "ignore my own visits" is on
         gpc:          navigator.globalPrivacyControl === true,
         dnt:          navigator.doNotTrack
@@ -887,7 +905,8 @@ img{max-width:100%; display:block}
       if (timer || flush()) return;
       timer = setInterval(function () {
         // ~10s, then give up: the script is blocked and is not coming.
-        if (flush() || ++tries > 40) { clearInterval(timer); timer = null; queue.length = 0; }
+        if (flush()) return;
+        if (++tries > 40) { clearInterval(timer); timer = null; gaveUp = true; queue.length = 0; }
       }, 250);
     }
 
