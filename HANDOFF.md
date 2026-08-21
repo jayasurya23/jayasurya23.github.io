@@ -18,8 +18,8 @@ Live site: **https://jayasurya23.github.io** (GitHub Pages, publishes from `main
 
 ## Site structure
 
-Six tabbed panels, no scrolling on desktop: **Home → About → Projects → Why
-Hire Me → Skills → Experience**. Panels swap in place; `#projects`-style deep
+Six tabbed panels, no scrolling on desktop: **Home → About → Why Hire Me →
+Projects → Skills → Experience**. Panels swap in place; `#projects`-style deep
 links work and so do arrow keys.
 
 The order lives in `ORDER` in the script and must match three other things:
@@ -47,10 +47,10 @@ Things worth knowing before editing:
 - **Experience and Skills are the tightest panels.** Experience carries nine
   bullets plus the education row and has no header subtitle as a result; it
   only fits because, being last in the walk, it needs no hand-off button.
-  Skills carries a full 2x2 card grid plus a hand-off, so it uses the slim
-  `.cta--slim` text link rather than the big pill — the pill costs about 30px
-  more and pushes it past the fold. Adding content to either means taking
-  height back somewhere else.
+  Skills carries a full 2x2 card grid plus the standard pill CTA, and every
+  spacing value in `.sk` and `.skillgrid` is tuned to buy that pill its ~69px
+  — it went 39px over the fold before that pass. Adding content to either
+  panel means taking the height back somewhere else.
 - **Sections** are marked with `<!-- ═══ 01 · HOME ═══ -->` style comments.
 - **Photo** is a base64 data URI in the `.pfp, .brand__pic` rule. The source is an
   uncropped 3:2 landscape, so `background-size`/`background-position` are tuned to
@@ -75,7 +75,9 @@ Education.
 - **Spacing knobs** are grouped at the top of `resume.tex` (`\bulletgap`,
   `\listgap`, `\secgapbefore`, `\secgapafter`, `\jobgap`, `\projgap`). Adjust these
   before cutting content. `\bulletgap` gives the most visible payoff per point.
-- Bullets follow **XYZ**: did X using tools Y, producing concrete outcome Z.
+- The dental X-ray pipeline is **YOLOv5**, confirmed. Do not "correct" it to v8.
+
+Bullets follow **XYZ**: did X using tools Y, producing concrete outcome Z.
   Outcomes are specific, not generic percentages.
 - **Bold sparingly** — only product names, tool/model names, and hard numbers.
   Bold does nothing for ATS parsing; it's purely a human scanning aid, so heavy
@@ -84,12 +86,13 @@ Education.
 
 ## Open items
 
-1. **`resume.tex` is behind `resume.pdf`.** The PDF in this repo was supplied
+1. **`resume.tex` is still behind `resume.pdf`.** The PDF was supplied
    already compiled and is a later revision than the LaTeX: it adds an "Areas
-   of Specialization" section and a portfolio link, tightens the summary, and
-   **says YOLOv5 where `resume.tex` says YOLOv8.** The site now follows the
-   PDF. Decide which is right, then bring the other two into line — right now
-   regenerating `resume.pdf` from `resume.tex` would silently undo the update.
+   of Specialization" section and a portfolio link, and tightens the summary.
+   Those edits exist only in the PDF, so **regenerating `resume.pdf` from
+   `resume.tex` today would silently undo them.** Port them into the LaTeX
+   before recompiling. (The YOLOv5/YOLOv8 disagreement is settled: YOLOv5 is
+   correct and every file now says so.)
 2. **BLIP's LLM is unnamed.** Both the site and the resume say "LLM layer" /
    "LLM search" because the specific model was never confirmed. Name it.
 3. **Dropped skill keywords.** The site's Skills panel carries the full list,

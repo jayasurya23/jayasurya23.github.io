@@ -197,7 +197,7 @@ img{max-width:100%; display:block}
 .btn--primary:hover{background:var(--btn-bg-hover); transform:translateY(-1px)}
 .btn svg{width:15px; height:15px}
 .card{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:20px}
-.tags{display:flex; flex-wrap:wrap; gap:5px}
+.tags{display:flex; flex-wrap:wrap; gap:4px}
 .tag{padding:3px 8px; border-radius:6px; background:var(--surface); border:1px solid var(--line); font-size:.74rem; font-weight:500; color:var(--tag-fg)}
 
 /* ═══ 01 · HOME ═══════════════════════════════════════════════════ */
@@ -262,7 +262,35 @@ img{max-width:100%; display:block}
 .passion h3{margin-bottom:3px}
 .passion p{font-size:.85rem; color:var(--muted); line-height:1.5}
 
-/* ═══ 03 · PROJECTS ═══════════════════════════════════════════════ */
+/* ═══ 03 · WHY HIRE ME ════════════════════════════════════════════ */
+.reasons{display:grid; gap:11px}
+.reason{display:flex; gap:15px; padding:13px 18px; background:var(--card); border:1px solid var(--line); border-radius:var(--radius)}
+.reason--lead{background:var(--accent-soft); border-color:var(--accent-line)}
+.reason__no{flex:none; width:34px; height:34px; border-radius:10px; background:var(--btn-bg); color:var(--btn-fg); display:grid; place-items:center}
+.reason__no svg{width:18px; height:18px}
+.reason--lead .reason__no{background:var(--accent)}
+.reason h3{margin-bottom:3px; font-size:1rem}
+.reason p{font-size:.875rem; line-height:1.55}
+.cta{margin-top:auto; padding-top:18px; text-align:center}
+.cta__t{font-size:.89rem; color:var(--muted); margin-bottom:9px}
+.cta__big{
+  display:inline-flex; align-items:center; gap:12px; padding:15px 36px; border-radius:12px;
+  background:var(--btn-bg); color:var(--btn-fg); border:0; font-family:inherit; font-size:1.1rem;
+  font-weight:650; letter-spacing:-.01em; cursor:pointer;
+  box-shadow:0 4px 14px var(--btn-glow);
+  transition:background .16s ease, transform .16s ease, box-shadow .16s ease;
+}
+.cta__big svg{width:20px; height:20px; transition:transform .16s ease}
+.cta__big:hover{background:var(--btn-bg-hover); transform:translateY(-2px); box-shadow:0 8px 22px var(--btn-glow-2)}
+.cta__big:hover svg{transform:translateX(3px)}
+.cta__alt{
+  display:block; margin:11px auto 0; background:none; border:0; font-family:inherit;
+  font-size:.88rem; color:var(--muted); cursor:pointer; text-decoration:underline;
+  text-underline-offset:3px; text-decoration-color:var(--line-2); transition:color .16s ease;
+}
+.cta__alt:hover{color:var(--accent)}
+
+/* ═══ 04 · PROJECTS ═══════════════════════════════════════════════ */
 .projects{display:grid; grid-template-columns:repeat(3,1fr); gap:8px}
 .project{display:flex; flex-direction:column; padding:11px 14px; transition:border-color .16s ease, box-shadow .16s ease, transform .16s ease}
 .project:hover{border-color:var(--line-2); box-shadow:var(--shadow); transform:translateY(-2px)}
@@ -286,44 +314,15 @@ img{max-width:100%; display:block}
 .project__links svg{width:14px; height:14px}
 .project__note{margin-top:10px; padding-top:9px; border-top:1px solid var(--line); font-size:.77rem; color:var(--muted)}
 
-/* ═══ 04 · WHY HIRE ME ════════════════════════════════════════════ */
-.reasons{display:grid; gap:11px}
-.reason{display:flex; gap:15px; padding:13px 18px; background:var(--card); border:1px solid var(--line); border-radius:var(--radius)}
-.reason--lead{background:var(--accent-soft); border-color:var(--accent-line)}
-.reason__no{flex:none; width:34px; height:34px; border-radius:10px; background:var(--btn-bg); color:var(--btn-fg); display:grid; place-items:center}
-.reason__no svg{width:18px; height:18px}
-.reason--lead .reason__no{background:var(--accent)}
-.reason h3{margin-bottom:3px; font-size:1rem}
-.reason p{font-size:.875rem; line-height:1.55}
-.cta{margin-top:auto; padding-top:18px; text-align:center}
-.cta--slim{padding-top:8px}
-.cta__t{font-size:.89rem; color:var(--muted); margin-bottom:9px}
-.cta__big{
-  display:inline-flex; align-items:center; gap:12px; padding:15px 36px; border-radius:12px;
-  background:var(--btn-bg); color:var(--btn-fg); border:0; font-family:inherit; font-size:1.1rem;
-  font-weight:650; letter-spacing:-.01em; cursor:pointer;
-  box-shadow:0 4px 14px var(--btn-glow);
-  transition:background .16s ease, transform .16s ease, box-shadow .16s ease;
-}
-.cta__big svg{width:20px; height:20px; transition:transform .16s ease}
-.cta__big:hover{background:var(--btn-bg-hover); transform:translateY(-2px); box-shadow:0 8px 22px var(--btn-glow-2)}
-.cta__big:hover svg{transform:translateX(3px)}
-.cta__alt{
-  display:block; margin:11px auto 0; background:none; border:0; font-family:inherit;
-  font-size:.88rem; color:var(--muted); cursor:pointer; text-decoration:underline;
-  text-underline-offset:3px; text-decoration-color:var(--line-2); transition:color .16s ease;
-}
-.cta__alt:hover{color:var(--accent)}
-
 /* ═══ 05 · SKILLS ═════════════════════════════════════════════════ */
-.skillgrid{display:grid; grid-template-columns:repeat(2,1fr); gap:10px}
-.sk{padding:15px 18px}
-.sk__hd{display:flex; align-items:center; gap:11px; margin-bottom:4px}
-.sk__ic{width:34px; height:34px; flex:none; border-radius:9px; background:var(--surface); border:1px solid var(--line-2); color:var(--accent); display:grid; place-items:center}
+.skillgrid{display:grid; grid-template-columns:repeat(2,1fr); gap:8px}
+.sk{padding:12px 16px}
+.sk__hd{display:flex; align-items:center; gap:10px; margin-bottom:3px}
+.sk__ic{width:30px; height:30px; flex:none; border-radius:9px; background:var(--surface); border:1px solid var(--line-2); color:var(--accent); display:grid; place-items:center}
 .sk__ic svg{width:17px; height:17px}
 .sk h3{font-size:1.02rem}
 .sk__sub{font-size:.72rem; color:var(--muted); font-weight:600; letter-spacing:.04em; text-transform:uppercase}
-.sk > p{font-size:.845rem; color:var(--body); margin:2px 0 11px; line-height:1.45}
+.sk > p{font-size:.83rem; color:var(--body); margin:2px 0 8px; line-height:1.42}
 
 /* ═══ 06 · EXPERIENCE ═════════════════════════════════════════════ */
 .xp{display:grid; gap:8px}
@@ -421,8 +420,8 @@ img{max-width:100%; display:block}
     <nav class="tabs" id="tabs">
       <button class="tab is-active" data-panel="home">Home</button>
       <button class="tab" data-panel="about">About</button>
-      <button class="tab" data-panel="projects">Projects</button>
       <button class="tab" data-panel="hire">Why Hire Me</button>
+      <button class="tab" data-panel="projects">Projects</button>
       <button class="tab" data-panel="skills">Skills</button>
       <button class="tab" data-panel="experience">Experience</button>
     </nav>
@@ -531,79 +530,6 @@ img{max-width:100%; display:block}
   </div>
 
   <div class="cta">
-    <button class="cta__big" data-goto="projects">
-      See my projects
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-    </button>
-  </div>
-</section>
-
-
-<!-- ═══ 03 · PROJECTS ═══════════════════════════════════════════════ -->
-<section class="panel" id="p-projects">
-  <div class="projhead">
-    <a class="ghlink" href="https://github.com/jayasurya23" target="_blank" rel="noopener">
-      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2A10 10 0 0 0 8.8 21.5c.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.3-3.4-1.3-.4-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.5 2.4 1.1 3 .8.1-.7.4-1.1.6-1.4-2.2-.2-4.6-1.1-4.6-5 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.6 0 0 .8-.3 2.7 1a9.4 9.4 0 0 1 5 0c1.9-1.3 2.7-1 2.7-1 .5 1.3.2 2.3.1 2.6.6.7 1 1.6 1 2.7 0 3.9-2.4 4.8-4.6 5 .4.3.7 1 .7 1.9v2.8c0 .3.2.6.7.5A10 10 0 0 0 12 2z"/></svg>
-      github.com/jayasurya23
-    </a>
-  </div>
-
-  <div class="projects">
-
-    <article class="card project">
-      <div class="project__top"><h3>BLIP</h3><span class="pill">Featured</span></div>
-      <div class="project__sub"><strong>B</strong>urst <strong>L</strong>ocalisation &amp; <strong>I</strong>mage <strong>P</strong>runing</div>
-      <p>Clusters related shots with <strong>DINOv3 embeddings</strong> and ranks them by focus and quality. An <strong>LLM layer</strong> captions the finals and powers <strong>natural-language search</strong>, so you find photos by describing them.</p>
-      <div class="tags"><span class="tag">DINOv3</span><span class="tag">OpenCV</span><span class="tag">LLMs</span><span class="tag">Python</span></div>
-      <div class="project__links">
-        <a href="https://huggingface.co/spaces/Jayasurya23/photo-culling" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6M10 14 21 3"/></svg> Live app</a>
-      </div>
-    </article>
-
-    <article class="card project">
-      <div class="project__top"><h3>Castillo Planset QC</h3><span class="pill pill--plain">Production</span></div>
-      <p>Reviews solar and electrical drawings against <strong>470+ compliance checks</strong> and <strong>18 deterministic NEC rules</strong> on <strong>OpenAI</strong> and <strong>Gemini Vision</strong>. <strong>Adaptive tiling</strong> reads large sheets at native resolution and remaps every finding to its exact coordinate, turning a <strong>5-hour review into minutes</strong>.</p>
-      <div class="tags"><span class="tag">Gemini Vision</span><span class="tag">OpenAI</span><span class="tag">Python</span><span class="tag">VLM</span></div>
-      <div class="project__links">
-        <a href="https://jayasurya23.github.io/planset-qc-demo/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6M10 14 21 3"/></svg> Demo</a>
-        <a href="https://github.com/jayasurya23/planset-qc-demo" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m8 8-5 4 5 4M16 8l5 4-5 4"/></svg> Code</a>
-      </div>
-    </article>
-
-    <article class="card project">
-      <div class="project__top"><h3>PMO 360</h3><span class="pill pill--plain">Production</span></div>
-      <p>Turns meeting notes into <strong>structured actions</strong> and client deliverables for <strong>every PM team</strong>. Built on <strong>FastAPI</strong>, <strong>PostgreSQL</strong>, and <strong>React</strong>, with <strong>Microsoft Graph</strong> and <strong>Entra ID</strong> behind calendar, identity, and document generation.</p>
-      <div class="tags"><span class="tag">FastAPI</span><span class="tag">PostgreSQL</span><span class="tag">React</span><span class="tag">OpenAI</span></div>
-      <div class="project__links">
-        <a href="https://jayasurya23.github.io/Project-Management-Portal-Demo" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6M10 14 21 3"/></svg> Demo</a>
-        <a href="https://github.com/jayasurya23/Project-Management-Portal-Demo" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m8 8-5 4 5 4M16 8l5 4-5 4"/></svg> Code</a>
-      </div>
-    </article>
-
-    <article class="card project">
-      <div class="project__top"><h3>SecondSight</h3><span class="pill pill--plain">Computer Vision</span></div>
-      <div class="project__sub">A second pair of eyes on every drive</div>
-      <p>Warning system on <strong>live dash-cam footage</strong>: vehicle detection with <strong>ID tracking</strong>, <strong>lane departure</strong>, brake-light and <strong>traffic-signal recognition</strong>, collision risk, and <strong>pedestrian detection</strong>.</p>
-      <div class="tags"><span class="tag">TensorFlow</span><span class="tag">OpenCV</span><span class="tag">Object Tracking</span><span class="tag">Lane Detection</span></div>
-      <div class="project__links">
-        <a href="https://github.com/jayasurya23/Warning-system-for-automobile-drivers" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m8 8-5 4 5 4M16 8l5 4-5 4"/></svg> Code</a>
-      </div>
-    </article>
-
-    <article class="card project">
-      <div class="project__top"><h3>RootCause</h3><span class="pill pill--plain">Computer Vision</span></div>
-      <div class="project__sub">Periodontal bone loss, measured from panoramic X-rays</div>
-      <p><strong>YOLOv5 + U-Net</strong> on panoramic dental X-rays. It localizes teeth, segments periodontal bone, and measures bone loss. Deployed across <strong>5 clinics</strong>, with <strong>GAN enhancement</strong> for noisy radiographs.</p>
-      <div class="tags"><span class="tag">PyTorch</span><span class="tag">YOLOv5</span><span class="tag">U-Net</span><span class="tag">GANs</span><span class="tag">OpenCV</span></div>
-      <div class="project__links">
-        <a href="https://github.com/jayasurya23/Dental-X-Ray-Detection/tree/main/Dental-Xray-detection/DentalXrayAI-main" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m8 8-5 4 5 4M16 8l5 4-5 4"/></svg> Code</a>
-      </div>
-    </article>
-
-  </div>
-
-
-  <div class="cta">
     <button class="cta__big" data-goto="hire">
       Why you should hire me
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
@@ -612,7 +538,7 @@ img{max-width:100%; display:block}
 </section>
 
 
-<!-- ═══ 04 · WHY HIRE ME ════════════════════════════════════════════ -->
+<!-- ═══ 03 · WHY HIRE ME ════════════════════════════════════════════ -->
 <section class="panel" id="p-hire">
   <div class="phead">
     <span class="eyebrow">Why hire me</span>
@@ -652,12 +578,84 @@ img{max-width:100%; display:block}
   </div>
 
   <div class="cta">
+    <p class="cta__t">The work speaks for itself.</p>
+    <button class="cta__big" data-goto="projects">
+      See my projects
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </button>
+  </div>
+
+</section>
+
+
+<!-- ═══ 04 · PROJECTS ═══════════════════════════════════════════════ -->
+<section class="panel" id="p-projects">
+  <div class="projhead">
+    <a class="ghlink" href="https://github.com/jayasurya23" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2A10 10 0 0 0 8.8 21.5c.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.3-3.4-1.3-.4-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.5 2.4 1.1 3 .8.1-.7.4-1.1.6-1.4-2.2-.2-4.6-1.1-4.6-5 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.6 0 0 .8-.3 2.7 1a9.4 9.4 0 0 1 5 0c1.9-1.3 2.7-1 2.7-1 .5 1.3.2 2.3.1 2.6.6.7 1 1.6 1 2.7 0 3.9-2.4 4.8-4.6 5 .4.3.7 1 .7 1.9v2.8c0 .3.2.6.7.5A10 10 0 0 0 12 2z"/></svg>
+      github.com/jayasurya23
+    </a>
+  </div>
+
+  <div class="projects">
+    <article class="card project">
+      <div class="project__top"><h3>BLIP</h3><span class="pill">Featured</span></div>
+      <div class="project__sub"><strong>B</strong>urst <strong>L</strong>ocalisation &amp; <strong>I</strong>mage <strong>P</strong>runing</div>
+      <p>Clusters related shots with <strong>DINOv3 embeddings</strong> and ranks them by focus and quality. An <strong>LLM layer</strong> captions the finals and powers <strong>natural-language search</strong>, so you find photos by describing them.</p>
+      <div class="tags"><span class="tag">DINOv3</span><span class="tag">OpenCV</span><span class="tag">LLMs</span><span class="tag">Python</span></div>
+      <div class="project__links">
+        <a href="https://huggingface.co/spaces/Jayasurya23/photo-culling" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6M10 14 21 3"/></svg> Live app</a>
+      </div>
+    </article>
+
+    <article class="card project">
+      <div class="project__top"><h3>Castillo Planset QC</h3><span class="pill pill--plain">Production</span></div>
+      <p>Reviews solar and electrical drawings against <strong>470+ compliance checks</strong> and <strong>18 deterministic NEC rules</strong> on <strong>OpenAI</strong> and <strong>Gemini Vision</strong>. <strong>Adaptive tiling</strong> reads large sheets at native resolution and remaps every finding to its exact coordinate, turning a <strong>5-hour review into minutes</strong>.</p>
+      <div class="tags"><span class="tag">Gemini Vision</span><span class="tag">OpenAI</span><span class="tag">Python</span><span class="tag">VLM</span></div>
+      <div class="project__links">
+        <a href="https://jayasurya23.github.io/planset-qc-demo/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6M10 14 21 3"/></svg> Demo</a>
+        <a href="https://github.com/jayasurya23/planset-qc-demo" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m8 8-5 4 5 4M16 8l5 4-5 4"/></svg> Code</a>
+      </div>
+    </article>
+
+    <article class="card project">
+      <div class="project__top"><h3>SecondSight</h3><span class="pill pill--plain">Computer Vision</span></div>
+      <div class="project__sub">A second pair of eyes on every drive</div>
+      <p>Warning system on <strong>live dash-cam footage</strong>: vehicle detection with <strong>ID tracking</strong>, <strong>lane departure</strong>, brake-light and <strong>traffic-signal recognition</strong>, collision risk, and <strong>pedestrian detection</strong>.</p>
+      <div class="tags"><span class="tag">TensorFlow</span><span class="tag">OpenCV</span><span class="tag">Object Tracking</span><span class="tag">Lane Detection</span></div>
+      <div class="project__links">
+        <a href="https://github.com/jayasurya23/Warning-system-for-automobile-drivers" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m8 8-5 4 5 4M16 8l5 4-5 4"/></svg> Code</a>
+      </div>
+    </article>
+
+    <article class="card project">
+      <div class="project__top"><h3>RootCause</h3><span class="pill pill--plain">Computer Vision</span></div>
+      <div class="project__sub">Periodontal bone loss, measured from panoramic X-rays</div>
+      <p><strong>YOLOv5 + U-Net</strong> on panoramic dental X-rays. It localizes teeth, segments periodontal bone, and measures bone loss. Deployed across <strong>5 clinics</strong>, with <strong>GAN enhancement</strong> for noisy radiographs.</p>
+      <div class="tags"><span class="tag">PyTorch</span><span class="tag">YOLOv5</span><span class="tag">U-Net</span><span class="tag">GANs</span><span class="tag">OpenCV</span></div>
+      <div class="project__links">
+        <a href="https://github.com/jayasurya23/Dental-X-Ray-Detection/tree/main/Dental-Xray-detection/DentalXrayAI-main" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m8 8-5 4 5 4M16 8l5 4-5 4"/></svg> Code</a>
+      </div>
+    </article>
+
+    <article class="card project">
+      <div class="project__top"><h3>PMO 360</h3><span class="pill pill--plain">Production</span></div>
+      <p>Turns meeting notes into <strong>structured actions</strong> and client deliverables for <strong>every PM team</strong>. Built on <strong>FastAPI</strong>, <strong>PostgreSQL</strong>, and <strong>React</strong>, with <strong>Microsoft Graph</strong> and <strong>Entra ID</strong> behind calendar, identity, and document generation.</p>
+      <div class="tags"><span class="tag">FastAPI</span><span class="tag">PostgreSQL</span><span class="tag">React</span><span class="tag">OpenAI</span></div>
+      <div class="project__links">
+        <a href="https://jayasurya23.github.io/Project-Management-Portal-Demo" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6M10 14 21 3"/></svg> Demo</a>
+        <a href="https://github.com/jayasurya23/Project-Management-Portal-Demo" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m8 8-5 4 5 4M16 8l5 4-5 4"/></svg> Code</a>
+      </div>
+    </article>
+  </div>
+
+
+  <div class="cta">
     <button class="cta__big" data-goto="skills">
       See the skills behind this
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
     </button>
   </div>
-
 </section>
 
 
@@ -709,8 +707,11 @@ img{max-width:100%; display:block}
 
   </div>
 
-  <div class="cta cta--slim">
-    <button class="cta__alt" data-goto="experience">See where I've worked &rarr;</button>
+  <div class="cta">
+    <button class="cta__big" data-goto="experience">
+      See where I've worked
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </button>
   </div>
 </section>
 
@@ -861,7 +862,7 @@ img{max-width:100%; display:block}
     }
   })();
 
-  var ORDER = ['home', 'about', 'projects', 'hire', 'skills', 'experience'];
+  var ORDER = ['home', 'about', 'hire', 'projects', 'skills', 'experience'];
   var LABEL = { home:'Home', about:'About', experience:'Experience', hire:'Why Hire Me', skills:'Skills', projects:'Projects' };
 
   var tabs    = Array.prototype.slice.call(document.querySelectorAll('.tab'));
