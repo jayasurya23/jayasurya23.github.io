@@ -829,6 +829,11 @@ img{max-width:100%; display:block}
        ─────────────────────────────────────────────────────── */
     var GOATCOUNTER = 'https://jayasurya.goatcounter.com/count';
 
+    window.__gcDebug = function () {
+      return { configured: GOATCOUNTER || null, disabledBecause: !GOATCOUNTER ? 'not configured' : 'opted out (GPC or DNT)',
+               gpc: navigator.globalPrivacyControl === true, dnt: navigator.doNotTrack };
+    };
+
     if (!GOATCOUNTER) return noop;
 
     var optedOut = navigator.globalPrivacyControl === true ||
@@ -844,14 +849,28 @@ img{max-width:100%; display:block}
        analytics host at all. no_onload suppresses the automatic pageview
        (this is a single-page app, panels are counted by hand); no_events
        suppresses automatic click binding, which is done explicitly below. */
-    window.goatcounter = { no_onload: true, no_events: true };
+    window.goatcounter = { no_onload: true, no_events: true, endpoint: GOATCOUNTER };
     var s = document.createElement('script');
     s.async = true;
     s.src = 'https://gc.zgo.at/count.js';
     s.setAttribute('data-goatcounter', GOATCOUNTER);
     document.head.appendChild(s);
 
-    var queue = [], tries = 0, timer = null;
+    var queue = [], tries = 0, timer = null, sent = 0;
+
+    window.__gcDebug = function () {
+      var skip = null;
+      try { skip = localStorage.getItem('skipgc'); } catch (e) {}
+      return {
+        configured:   GOATCOUNTER,
+        scriptLoaded: !!(window.goatcounter && window.goatcounter.count),
+        sent:         sent,
+        queued:       queue.length,
+        skipgcFlag:   skip,      // 't' means GoatCounter's "ignore my own visits" is on
+        gpc:          navigator.globalPrivacyControl === true,
+        dnt:          navigator.doNotTrack
+      };
+    };
 
     function ready() {
       return window.goatcounter && typeof window.goatcounter.count === 'function';
@@ -859,7 +878,7 @@ img{max-width:100%; display:block}
     function flush() {
       if (!ready()) return false;
       while (queue.length) {
-        try { window.goatcounter.count(queue.shift()); } catch (e) { /* never break the page */ }
+        try { window.goatcounter.count(queue.shift()); sent++; } catch (e) { /* never break the page */ }
       }
       if (timer) { clearInterval(timer); timer = null; }
       return true;
