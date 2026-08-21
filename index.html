@@ -349,7 +349,11 @@ img{max-width:100%; display:block}
 .pnav button:hover:not(:disabled){border-color:var(--accent); color:var(--accent)}
 .pnav button:disabled{visibility:hidden}
 .pnav svg{width:14px; height:14px}
-.pnav__hint{font-size:.75rem; color:var(--muted)}
+.pnav__hint{font-size:.75rem; color:var(--muted); display:flex; align-items:center; gap:14px}
+/* Sits on the existing hint row rather than adding one: every panel is at
+   zero vertical slack, so a new line here would push all six past the fold.
+   Unhidden by script only when analytics is actually switched on. */
+.pnav__priv{font-size:.7rem; opacity:.8}
 .pnav__hint kbd{font-family:inherit; font-size:.71rem; padding:2px 6px; border-radius:5px; border:1px solid var(--line-2); background:var(--surface); color:var(--body)}
 
 /* ═══ RESPONSIVE ════════════════════════════════════════════ */
@@ -376,7 +380,8 @@ img{max-width:100%; display:block}
   .xp__job{grid-template-columns:1fr; gap:13px}
   .xp__edu{flex-direction:column; align-items:flex-start; gap:8px}
   .xp__gpa{text-align:left}
-  .pnav__hint{display:none}
+  .pnav__hint .pnav__keys{display:none}
+  .pnav__hint{gap:0}
   .cta__big{width:100%; justify-content:center; padding-left:20px; padding-right:20px}
 }
 @media (prefers-reduced-motion:reduce){*{animation-duration:.001ms !important; transition-duration:.001ms !important}}
@@ -778,7 +783,10 @@ img{max-width:100%; display:block}
 <div class="pnav">
   <div class="pnav__in">
     <button id="prevBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 18l-6-6 6-6"/></svg> <span id="prevLbl">Back</span></button>
-    <span class="pnav__hint">Use <kbd>←</kbd> <kbd>→</kbd> to move between sections</span>
+    <span class="pnav__hint">
+      <span class="pnav__keys">Use <kbd>←</kbd> <kbd>→</kbd> to move between sections</span>
+      <span class="pnav__priv" id="privNote" hidden>Anonymous analytics · no cookies</span>
+    </span>
     <button id="nextBtn"><span id="nextLbl">Next</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
   </div>
 </div>
@@ -788,6 +796,85 @@ img{max-width:100%; display:block}
 <script>
 (function () {
   'use strict';
+
+  /* ══ ANALYTICS ═════════════════════════════════════════════
+     Panel views go out as pageviews, interactions as events.
+
+     Three things this has to survive, because none of them are
+     unusual for the audience this site is aimed at:
+       - count.js is async, so a click can land before it loads.
+         Events are queued and flushed once it appears.
+       - count.js may never load at all: an ad blocker will stop
+         it, and plenty of engineers run one. Everything here is
+         wrapped so the site behaves identically either way.
+       - the visitor may have asked not to be tracked. Global
+         Privacy Control is legally binding in some US states and
+         Do Not Track is not, but both are honoured here.
+
+     TO SWITCH ON: replace YOURCODE in the data-goatcounter URL in
+     <head> with your GoatCounter subdomain. Until then nothing is
+     sent anywhere and the footer note stays hidden.
+     ═════════════════════════════════════════════════════════ */
+  var track = (function () {
+    var noop = function () {};
+
+    /* ── THE ONLY LINE YOU EDIT ──────────────────────────────
+       Paste your GoatCounter counter URL here to switch tracking
+       on. Empty means off: no script is fetched, no request of
+       any kind leaves the page.
+         var GOATCOUNTER = 'https://yourname.goatcounter.com/count';
+       ─────────────────────────────────────────────────────── */
+    var GOATCOUNTER = '';
+
+    if (!GOATCOUNTER) return noop;
+
+    var optedOut = navigator.globalPrivacyControl === true ||
+                   navigator.doNotTrack === '1' || navigator.doNotTrack === 'yes' ||
+                   window.doNotTrack === '1' || navigator.msDoNotTrack === '1';
+    if (optedOut) return noop;
+
+    var note = document.getElementById('privNote');
+    if (note) note.hidden = false;
+
+    /* Loaded here rather than as a tag in <head> so that a visitor who has
+       opted out, or a site with tracking switched off, never touches the
+       analytics host at all. no_onload suppresses the automatic pageview
+       (this is a single-page app, panels are counted by hand); no_events
+       suppresses automatic click binding, which is done explicitly below. */
+    window.goatcounter = { no_onload: true, no_events: true };
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://gc.zgo.at/count.js';
+    s.setAttribute('data-goatcounter', GOATCOUNTER);
+    document.head.appendChild(s);
+
+    var queue = [], tries = 0, timer = null;
+
+    function ready() {
+      return window.goatcounter && typeof window.goatcounter.count === 'function';
+    }
+    function flush() {
+      if (!ready()) return false;
+      while (queue.length) {
+        try { window.goatcounter.count(queue.shift()); } catch (e) { /* never break the page */ }
+      }
+      if (timer) { clearInterval(timer); timer = null; }
+      return true;
+    }
+    function wait() {
+      if (timer || flush()) return;
+      timer = setInterval(function () {
+        // ~10s, then give up: the script is blocked and is not coming.
+        if (flush() || ++tries > 40) { clearInterval(timer); timer = null; queue.length = 0; }
+      }, 250);
+    }
+
+    return function (path, isEvent) {
+      if (queue.length > 60) return;          // a stuck queue must not grow without bound
+      queue.push({ path: path, title: path, event: isEvent !== false });
+      wait();
+    };
+  })();
 
   /* ══ RESUME ════════════════════════════════════════════════
      The PDF is embedded below and turned into a blob: URL at load.
@@ -851,6 +938,7 @@ img{max-width:100%; display:block}
         var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
         writeStored(next);
         paint(next);
+        track('theme/' + next);
       });
     }
 
@@ -872,6 +960,8 @@ img{max-width:100%; display:block}
   var prevLbl = document.getElementById('prevLbl');
   var nextLbl = document.getElementById('nextLbl');
   var current = 'home';
+  var deepest = -1;          // furthest panel reached, tracked as it happens
+  var arrowLogged = false;
 
   function show(key, pushHash) {
     if (ORDER.indexOf(key) === -1) key = 'home';
@@ -886,6 +976,8 @@ img{max-width:100%; display:block}
     nextLbl.textContent = i < ORDER.length - 1 ? LABEL[ORDER[i + 1]] : 'End';
 
     document.title = LABEL[key] + ' · Jayasurya Bhaskar';
+    track('/#' + key, false);                       // panel view, counted as a pageview
+    if (i > deepest) { deepest = i; track('depth/' + (i + 1) + '-' + key); }
     window.scrollTo(0, 0);
     if (pushHash !== false) history.replaceState(null, '', '#' + key);
   }
@@ -902,11 +994,36 @@ img{max-width:100%; display:block}
   prevBtn.addEventListener('click', function () { step(-1); });
   nextBtn.addEventListener('click', function () { step(1); });
 
+  /* One delegated listener rather than a handler per element, so new
+     cards and links are instrumented automatically. */
+  document.addEventListener('click', function (e) {
+    var el = e.target.closest ? e.target.closest('a, button') : null;
+    if (!el) return;
+    var label = (el.textContent || '').trim().replace(/\s+/g, ' ').slice(0, 40);
+
+    if (el.id === 'resumeBtn')            return track('resume/open');
+    if (el.id === 'themeBtn')             return;   // handled where the theme flips
+    if (el.classList.contains('ghlink'))  return track('github/profile');
+
+    var card = el.closest('.project');
+    if (card) {
+      var name = card.querySelector('h3');
+      return track('project/' + (name ? name.textContent.trim() : '?') + '/' + label);
+    }
+    if (el.closest('.cbar'))              return track('contact/' + label);
+    if (el.classList.contains('tab'))     return track('nav/tab');
+    if (el.classList.contains('cta__big') || el.classList.contains('cta__alt'))
+                                          return track('nav/cta');
+    if (el.closest('.pnav'))              return track('nav/prevnext');
+  }, true);
+
   document.addEventListener('keydown', function (e) {
     var t = e.target.tagName;
     if (t === 'INPUT' || t === 'TEXTAREA' || e.metaKey || e.ctrlKey || e.altKey) return;
-    if (e.key === 'ArrowRight') { e.preventDefault(); step(1); }
-    if (e.key === 'ArrowLeft')  { e.preventDefault(); step(-1); }
+    if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+    e.preventDefault();
+    if (!arrowLogged) { arrowLogged = true; track('nav/arrow-keys'); }   // once, not per press
+    step(e.key === 'ArrowRight' ? 1 : -1);
   });
 
   window.addEventListener('hashchange', function () { show(location.hash.slice(1), false); });

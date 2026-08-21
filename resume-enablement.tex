@@ -1,0 +1,198 @@
+\documentclass[11pt,letterpaper]{article}
+\usepackage[top=0.26in, bottom=0.18in, left=0.42in, right=0.42in]{geometry}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage[T1]{fontenc}
+\usepackage{microtype}
+
+% ══════════════════════════════════════════════════════════════
+%  SPACING KNOBS
+%  11pt base, sized for ONE page with room to spare.
+%  Raise these if it looks tight-packed, lower them if it spills.
+%  \bulletgap gives the most visible payoff per point.
+% ══════════════════════════════════════════════════════════════
+\newcommand{\bulletgap}{2.6pt}   % space between bullets
+\newcommand{\listgap}{3pt}       % space above/below each bullet list
+\newcommand{\secgapbefore}{7.5pt}% space above a section heading
+\newcommand{\secgapafter}{4pt}   % space below a section heading
+\newcommand{\jobgap}{5pt}        % space between the two jobs
+\newcommand{\projgap}{3.5pt}     % space between project entries
+
+\hypersetup{
+    colorlinks=false,
+    urlcolor=black,
+    linkcolor=black,
+    pdfborderstyle={/S/U/W 0.5}
+}
+
+\definecolor{bandgray}{gray}{0.93}
+\definecolor{rulegray}{gray}{0.55}
+
+\titleformat{\section}
+{\bfseries\normalsize}
+{}
+{0em}
+{\MakeUppercase}
+[{\color{rulegray}\titlerule[0.8pt]}]
+
+\titlespacing{\section}{0pt}{\secgapbefore}{\secgapafter}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
+\hfuzz=3pt
+\pagestyle{empty}
+
+\newenvironment{tightlist}{%
+\begin{itemize}[
+    leftmargin=1.2em,
+    itemsep=\bulletgap,
+    topsep=\listgap,
+    parsep=0pt,
+    label={$\bullet$}
+]%
+}{%
+\end{itemize}%
+}
+
+\newcommand{\jobentry}[3]{%
+\noindent
+\colorbox{bandgray}{%
+\begin{minipage}{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}
+\vspace{2pt}
+{\bfseries #1} \hfill {\itshape #3}\\[-0.5pt]
+{\itshape #2}
+\vspace{2pt}
+\end{minipage}%
+}%
+}
+
+% #1 name  #2 links  #3 one-line description (all on a single line)
+\newcommand{\projectentry}[3]{%
+\noindent\textbf{#1} {\small (#2). #3}\\[\projgap]
+}
+
+\begin{document}
+
+\raggedright
+
+%---HEADER---
+\begin{center}
+{\LARGE \textbf{JAYASURYA BHASKAR}}\\[5pt]
+{\large \href{https://jayasurya23.github.io}{\textcolor{blue!70!black}{\underline{jayasurya23.github.io}}}}\\[4pt]
+{\small
+\href{tel:6892700723}{\underline{689-270-0723}} \;\textbar\;
+\href{mailto:bjayasurya23@gmail.com}{\underline{bjayasurya23@gmail.com}} \;\textbar\;
+\href{https://www.linkedin.com/in/jayasurya-b/}{\underline{LinkedIn}} \;\textbar\;
+\href{https://github.com/jayasurya23}{\underline{GitHub}}}
+\end{center}
+
+\vspace{-2pt}
+
+%---SUMMARY---
+\section{Summary}
+
+Software engineer with \textbf{3+ years} building production \textbf{LLM
+applications} and the internal tooling, automation, and \textbf{CI/CD} that
+engineering teams run on. Owns the company-wide codebase and release workflow,
+and has shipped internal platforms that turn unstructured signal into tracked,
+sprint-ready work. Comfortable as the first engineer against an open mandate.
+
+%---SPECIALIZATION---
+\section{Areas of Specialization}
+
+LLM Applications and Evaluation \;\textbullet\; Developer Tooling and Automation
+\;\textbullet\; CI/CD and Release Engineering \;\textbullet\; Backend Systems and APIs
+\;\textbullet\; Internal Platforms \;\textbullet\; MLOps and Model Lifecycle
+\;\textbullet\; Data Pipelines
+
+%---EXPERIENCE---
+\section{Experience}
+
+\jobentry{AI Engineer}{Castillo Engineering, Orlando, FL}{May 2024 -- Present}
+
+\begin{tightlist}
+
+\item \textbf{Own the company-wide codebase and release workflow}: PR review
+standards, \textbf{GitHub} administration, \textbf{CI/CD} pipelines, and
+onboarding and mentoring interns.
+
+\item Built \textbf{PMO 360}, an internal platform on \textbf{FastAPI},
+\textbf{PostgreSQL}, \textbf{React}, and the \textbf{OpenAI API} that converts
+unstructured meeting notes into tracked action items and client deliverables,
+adopted across every PM team.
+
+\item Built \textbf{Engineering Planset QC}, a production LLM and vision
+pipeline on \textbf{OpenAI} and \textbf{Gemini Vision} that runs
+\textbf{470+ compliance checks} against engineering drawings and gates every
+model output through \textbf{18 deterministic rules}, cutting a \textbf{5-hour}
+manual review to minutes.
+
+\item Automated a \textbf{350+ report/month} workflow, training a
+\textbf{MobileNetV3} classifier to route inbound photos into the right
+downstream pipeline.
+
+\item Built \textbf{PySpark} pipelines standardizing \textbf{3 TB} of data
+into \textbf{Delta Lake} for downstream services.
+
+\end{tightlist}
+
+\vspace{\jobgap}
+
+\jobentry{Machine Learning Engineer}{Genpact, Remote}{Feb 2022 -- Aug 2022}
+
+\begin{tightlist}
+
+\item Built automated pipelines over \textbf{100K+ images}, versioning datasets
+with \textbf{PySpark} and \textbf{Airflow} and promoting models to production
+through \textbf{MLflow} and \textbf{CI/CD}.
+
+\item Built a \textbf{YOLOv5 + U-Net} pipeline in \textbf{PyTorch} and
+\textbf{OpenCV} that segments periodontal bone on panoramic dental X-rays,
+deployed across \textbf{5 dental clinics}.
+
+\end{tightlist}
+
+%---SKILLS---
+\section{Technical Skills}
+
+\textbf{Languages:} Python, SQL, React/TypeScript\\[1.5pt]
+\textbf{AI:} OpenAI, \textbf{Anthropic Claude}, \textbf{Claude Code}, Gemini,
+prompt engineering, tool use, structured outputs, evaluation harnesses, RAG,
+agentic workflows\\[1.5pt]
+\textbf{Platform and Data:} FastAPI, REST APIs, PostgreSQL, SQLAlchemy, Docker,
+\textbf{GitHub Actions CI/CD}, GitHub administration, Azure, AWS, GCP, PySpark,
+Delta Lake, Airflow, MLflow
+
+%---PROJECTS---
+\section{Projects}
+
+\projectentry
+{PMO 360}
+{\href{https://jayasurya23.github.io/Project-Management-Portal-Demo}{\underline{Demo}}
+\;\textbar\;
+\href{https://github.com/jayasurya23/Project-Management-Portal-Demo}{\underline{Code}}}
+{Internal portal turning meeting notes into tracked work items via LLMs and APIs.}
+
+\projectentry
+{Engineering Planset QC}
+{\href{https://jayasurya23.github.io/planset-qc-demo/}{\underline{Demo}}
+\;\textbar\;
+\href{https://github.com/jayasurya23/planset-qc-demo}{\underline{Code}}}
+{LLM review pipeline with deterministic rule gating and tiled inference.}
+
+\projectentry
+{BLIP}
+{\href{https://huggingface.co/spaces/Jayasurya23/photo-culling}{\underline{Live app}}}
+{Photo culling: \textbf{DINOv3} clustering, best-frame ranking, LLM-driven search.}
+
+%---EDUCATION---
+\section{Education}
+
+\textbf{M.S. Computer Science}, University of Central Florida, 2024
+\hfill GPA: \textbf{3.7/4.0}\\[1pt]
+\textit{Graduate Teaching Assistant. Advanced AI: Neural Networks, Deep
+Learning, NLP, Reinforcement Learning.}
+
+\end{document}

@@ -111,6 +111,49 @@ Bullets follow **XYZ**: did X using tools Y, producing concrete outcome Z.
    and `Dental-X-Ray-Detection`. Renaming the repos would fix the mismatch
    (old URLs auto-redirect).
 
+## Analytics
+
+Off by default. The whole thing hangs off one constant in the script block:
+
+```js
+var GOATCOUNTER = '';   // paste your counter URL to switch it on
+```
+
+While that is empty **nothing is loaded and no request leaves the page** — the
+script tag is injected from JS rather than sitting in `<head>`, precisely so
+that a visitor who has opted out, or a site with tracking off, never contacts
+the analytics host at all. The footer note stays hidden in that state too, so
+the site never claims to collect something it isn't.
+
+To switch it on: sign up at goatcounter.com, then set the constant to
+`https://<yourcode>.goatcounter.com/count`. The data lives on GoatCounter's
+servers and is read at `https://<yourcode>.goatcounter.com`. Nothing is stored
+in this repo.
+
+What it sends:
+
+| Kind | Looks like |
+| --- | --- |
+| Panel view (pageview) | `/#projects` |
+| Furthest panel reached | `depth/4-projects` |
+| Resume | `resume/open` |
+| Project link | `project/BLIP/Live app` |
+| Contact | `contact/LinkedIn` |
+| Navigation | `nav/tab`, `nav/cta`, `nav/prevnext`, `nav/arrow-keys` |
+| Theme | `theme/dark` |
+
+Things that are load-bearing and easy to break:
+
+- **`no_onload` must stay set.** This is a single-page app; the automatic
+  pageview would only ever count the first panel, so `show()` sends them by
+  hand. Without `no_onload` the first panel is counted twice.
+- **Events are queued.** `count.js` is async and may never arrive at all
+  (ad blockers routinely stop it, and this site's audience runs them). The
+  queue flushes when it appears and is dropped after ~10s if it does not.
+- **Global Privacy Control and Do Not Track are both honoured** before
+  anything loads. GPC is legally binding in several US states.
+- Tracking is the site's only third-party dependency besides Google Fonts.
+
 ## Updating the live site
 
 Edit `index.html`, commit, push to `main`. Pages redeploys automatically, usually
