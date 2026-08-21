@@ -811,9 +811,12 @@ img{max-width:100%; display:block}
          Privacy Control is legally binding in some US states and
          Do Not Track is not, but both are honoured here.
 
-     TO SWITCH ON: replace YOURCODE in the data-goatcounter URL in
-     <head> with your GoatCounter subdomain. Until then nothing is
-     sent anywhere and the footer note stays hidden.
+     TO SWITCH OFF: blank the GOATCOUNTER constant below. Nothing
+     is then loaded or sent, and the footer note hides itself.
+
+     NOTE: count.js deliberately ignores localhost and file://, so
+     opening this page from disk will never register a hit. Test
+     against the deployed site.
      ═════════════════════════════════════════════════════════ */
   var track = (function () {
     var noop = function () {};
@@ -824,7 +827,7 @@ img{max-width:100%; display:block}
        any kind leaves the page.
          var GOATCOUNTER = 'https://yourname.goatcounter.com/count';
        ─────────────────────────────────────────────────────── */
-    var GOATCOUNTER = '';
+    var GOATCOUNTER = 'https://jayasurya.goatcounter.com/count';
 
     if (!GOATCOUNTER) return noop;
 
