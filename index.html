@@ -200,7 +200,7 @@ img{max-width:100%; display:block}
 .tags{display:flex; flex-wrap:wrap; gap:5px}
 .tag{padding:3px 8px; border-radius:6px; background:var(--surface); border:1px solid var(--line); font-size:.74rem; font-weight:500; color:var(--tag-fg)}
 
-/* ═══ 01 · HOME ═════════════════════════════════════════════ */
+/* ═══ 01 · HOME ═══════════════════════════════════════════════════ */
 .homegrid{display:grid; grid-template-columns:1.2fr .8fr; gap:54px; align-items:center}
 .homegrid__r{border-left:1px solid var(--line); padding-left:46px}
 .idrow{display:flex; align-items:center; gap:22px; margin-bottom:2px}
@@ -247,7 +247,7 @@ img{max-width:100%; display:block}
 .cbar a:hover{border-color:var(--accent); color:var(--accent); transform:translateY(-1px)}
 .cbar svg{width:15px; height:15px; flex:none; color:var(--accent)}
 
-/* ═══ 02 · ABOUT ════════════════════════════════════════════ */
+/* ═══ 02 · ABOUT ══════════════════════════════════════════════════ */
 .about{display:grid; grid-template-columns:1.5fr 1fr; gap:38px; align-items:start}
 .about p + p{margin-top:12px}
 .about strong{color:var(--ink); font-weight:650}
@@ -262,25 +262,31 @@ img{max-width:100%; display:block}
 .passion h3{margin-bottom:3px}
 .passion p{font-size:.85rem; color:var(--muted); line-height:1.5}
 
-/* ═══ 03 · EXPERIENCE ═══════════════════════════════════════ */
-.xp{display:grid; gap:8px}
-.xp__job{display:grid; grid-template-columns:194px 1fr; gap:22px; padding:12px 16px}
-.xp__side h3{font-size:1rem; margin-bottom:2px}
-.xp__co{font-size:.86rem; font-weight:650; color:var(--accent)}
-.xp__meta{font-size:.77rem; color:var(--muted); margin-top:1px}
-.xp__date{font-size:.75rem; color:var(--muted); margin-top:6px; padding-top:6px; border-top:1px solid var(--line)}
-.xp__side .tags{margin-top:8px}
-.xp__list{display:grid; gap:5px; align-content:start}
-.xp__list li{position:relative; padding-left:15px; font-size:.815rem; line-height:1.42}
-.xp__list li::before{content:''; position:absolute; left:1px; top:.58em; width:5px; height:5px; border-radius:50%; background:var(--accent)}
-.xp__list strong{color:var(--ink); font-weight:650}
-.xp__edu{display:flex; align-items:center; justify-content:space-between; gap:18px; margin-top:8px; padding:11px 16px; background:var(--surface); border:1px solid var(--line); border-radius:var(--radius)}
-.xp__edu h3{font-size:.97rem; margin-bottom:2px}
-.xp__edu p{font-size:.8rem; color:var(--muted); line-height:1.4}
-.xp__edu strong{color:var(--ink); font-weight:650}
-.xp__gpa{flex:none; text-align:right}
+/* ═══ 03 · PROJECTS ═══════════════════════════════════════════════ */
+.projects{display:grid; grid-template-columns:repeat(3,1fr); gap:8px}
+.project{display:flex; flex-direction:column; padding:11px 14px; transition:border-color .16s ease, box-shadow .16s ease, transform .16s ease}
+.project:hover{border-color:var(--line-2); box-shadow:var(--shadow); transform:translateY(-2px)}
+.project__top{display:flex; align-items:flex-start; justify-content:space-between; gap:8px; margin-bottom:7px}
+.project__top h3{font-size:.97rem}
+.project__sub{font-size:.73rem; color:var(--muted); margin:-3px 0 5px; letter-spacing:.005em; line-height:1.35}
+.project__sub strong{color:var(--accent); font-weight:700}
+.pill{padding:2.5px 8px; border-radius:999px; background:var(--accent-soft); border:1px solid var(--accent-line); color:var(--accent); font-size:.64rem; font-weight:650; letter-spacing:.06em; text-transform:uppercase; white-space:nowrap; flex:none}
+.pill--plain{background:var(--surface); border-color:var(--line); color:var(--muted)}
+.project p{font-size:.8rem; line-height:1.4; flex:1}
+.project p strong{color:var(--ink); font-weight:650}
+.project .tags{margin-top:8px}
+.project__links{display:flex; gap:8px; margin-top:8px; padding-top:7px; border-top:1px solid var(--line)}
+.project__links a{
+  display:inline-flex; align-items:center; gap:6px; padding:6px 12px; border-radius:8px;
+  background:var(--accent-soft); border:1px solid var(--accent-line); color:var(--accent);
+  font-size:.8rem; font-weight:700; letter-spacing:-.005em;
+  transition:background .16s ease, color .16s ease, border-color .16s ease, transform .16s ease;
+}
+.project__links a:hover{background:var(--accent); border-color:var(--accent); color:var(--on-accent); transform:translateY(-1px)}
+.project__links svg{width:14px; height:14px}
+.project__note{margin-top:10px; padding-top:9px; border-top:1px solid var(--line); font-size:.77rem; color:var(--muted)}
 
-/* ═══ 04 · WHY HIRE ME ══════════════════════════════════════ */
+/* ═══ 04 · WHY HIRE ME ════════════════════════════════════════════ */
 .reasons{display:grid; gap:11px}
 .reason{display:flex; gap:15px; padding:13px 18px; background:var(--card); border:1px solid var(--line); border-radius:var(--radius)}
 .reason--lead{background:var(--accent-soft); border-color:var(--accent-line)}
@@ -309,9 +315,9 @@ img{max-width:100%; display:block}
 }
 .cta__alt:hover{color:var(--accent)}
 
-/* ═══ 06 · SKILLS ═══════════════════════════════════════════ */
-.skillgrid{display:grid; grid-template-columns:repeat(2,1fr); gap:12px}
-.sk{padding:17px 19px}
+/* ═══ 05 · SKILLS ═════════════════════════════════════════════════ */
+.skillgrid{display:grid; grid-template-columns:repeat(2,1fr); gap:10px}
+.sk{padding:15px 18px}
 .sk__hd{display:flex; align-items:center; gap:11px; margin-bottom:4px}
 .sk__ic{width:34px; height:34px; flex:none; border-radius:9px; background:var(--surface); border:1px solid var(--line-2); color:var(--accent); display:grid; place-items:center}
 .sk__ic svg{width:17px; height:17px}
@@ -319,29 +325,23 @@ img{max-width:100%; display:block}
 .sk__sub{font-size:.72rem; color:var(--muted); font-weight:600; letter-spacing:.04em; text-transform:uppercase}
 .sk > p{font-size:.845rem; color:var(--body); margin:2px 0 11px; line-height:1.45}
 
-/* ═══ 05 · PROJECTS ═════════════════════════════════════════ */
-.projects{display:grid; grid-template-columns:repeat(3,1fr); gap:8px}
-.project{display:flex; flex-direction:column; padding:11px 14px; transition:border-color .16s ease, box-shadow .16s ease, transform .16s ease}
-.project:hover{border-color:var(--line-2); box-shadow:var(--shadow); transform:translateY(-2px)}
-.project__top{display:flex; align-items:flex-start; justify-content:space-between; gap:8px; margin-bottom:7px}
-.project__top h3{font-size:.97rem}
-.project__sub{font-size:.73rem; color:var(--muted); margin:-3px 0 5px; letter-spacing:.005em; line-height:1.35}
-.project__sub strong{color:var(--accent); font-weight:700}
-.pill{padding:2.5px 8px; border-radius:999px; background:var(--accent-soft); border:1px solid var(--accent-line); color:var(--accent); font-size:.64rem; font-weight:650; letter-spacing:.06em; text-transform:uppercase; white-space:nowrap; flex:none}
-.pill--plain{background:var(--surface); border-color:var(--line); color:var(--muted)}
-.project p{font-size:.8rem; line-height:1.4; flex:1}
-.project p strong{color:var(--ink); font-weight:650}
-.project .tags{margin-top:8px}
-.project__links{display:flex; gap:8px; margin-top:8px; padding-top:7px; border-top:1px solid var(--line)}
-.project__links a{
-  display:inline-flex; align-items:center; gap:6px; padding:6px 12px; border-radius:8px;
-  background:var(--accent-soft); border:1px solid var(--accent-line); color:var(--accent);
-  font-size:.8rem; font-weight:700; letter-spacing:-.005em;
-  transition:background .16s ease, color .16s ease, border-color .16s ease, transform .16s ease;
-}
-.project__links a:hover{background:var(--accent); border-color:var(--accent); color:var(--on-accent); transform:translateY(-1px)}
-.project__links svg{width:14px; height:14px}
-.project__note{margin-top:10px; padding-top:9px; border-top:1px solid var(--line); font-size:.77rem; color:var(--muted)}
+/* ═══ 06 · EXPERIENCE ═════════════════════════════════════════════ */
+.xp{display:grid; gap:8px}
+.xp__job{display:grid; grid-template-columns:194px 1fr; gap:22px; padding:12px 16px}
+.xp__side h3{font-size:1rem; margin-bottom:2px}
+.xp__co{font-size:.86rem; font-weight:650; color:var(--accent)}
+.xp__meta{font-size:.77rem; color:var(--muted); margin-top:1px}
+.xp__date{font-size:.75rem; color:var(--muted); margin-top:6px; padding-top:6px; border-top:1px solid var(--line)}
+.xp__side .tags{margin-top:8px}
+.xp__list{display:grid; gap:5px; align-content:start}
+.xp__list li{position:relative; padding-left:15px; font-size:.815rem; line-height:1.42}
+.xp__list li::before{content:''; position:absolute; left:1px; top:.58em; width:5px; height:5px; border-radius:50%; background:var(--accent)}
+.xp__list strong{color:var(--ink); font-weight:650}
+.xp__edu{display:flex; align-items:center; justify-content:space-between; gap:18px; margin-top:8px; padding:11px 16px; background:var(--surface); border:1px solid var(--line); border-radius:var(--radius)}
+.xp__edu h3{font-size:.97rem; margin-bottom:2px}
+.xp__edu p{font-size:.8rem; color:var(--muted); line-height:1.4}
+.xp__edu strong{color:var(--ink); font-weight:650}
+.xp__gpa{flex:none; text-align:right}
 
 /* ═══ PREV / NEXT ═══════════════════════════════════════════ */
 .pnav{border-top:1px solid var(--line); background:var(--bg)}
@@ -421,10 +421,10 @@ img{max-width:100%; display:block}
     <nav class="tabs" id="tabs">
       <button class="tab is-active" data-panel="home">Home</button>
       <button class="tab" data-panel="about">About</button>
-      <button class="tab" data-panel="experience">Experience</button>
-      <button class="tab" data-panel="hire">Why Hire Me</button>
       <button class="tab" data-panel="projects">Projects</button>
+      <button class="tab" data-panel="hire">Why Hire Me</button>
       <button class="tab" data-panel="skills">Skills</button>
+      <button class="tab" data-panel="experience">Experience</button>
     </nav>
 
     <button class="themetog" id="themeBtn" type="button" aria-pressed="false" aria-label="Switch to dark theme" title="Switch to dark theme">
@@ -445,7 +445,7 @@ img{max-width:100%; display:block}
 <div class="main">
 <div class="stage">
 
-<!-- ═══ 01 · HOME ═════════════════════════════════════════════ -->
+<!-- ═══ 01 · HOME ═══════════════════════════════════════════════════ -->
 <section class="panel is-active" id="p-home">
   <div class="homegrid">
 
@@ -493,7 +493,8 @@ img{max-width:100%; display:block}
   </div>
 </section>
 
-<!-- ═══ 02 · ABOUT ════════════════════════════════════════════ -->
+
+<!-- ═══ 02 · ABOUT ══════════════════════════════════════════════════ -->
 <section class="panel" id="p-about">
   <div class="phead">
     <span class="eyebrow">About me</span>
@@ -530,123 +531,15 @@ img{max-width:100%; display:block}
   </div>
 
   <div class="cta">
-    <button class="cta__big" data-goto="experience">
-      See where I've worked
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-    </button>
-  </div>
-</section>
-
-<!-- ═══ 03 · EXPERIENCE ═══════════════════════════════════════ -->
-<section class="panel" id="p-experience">
-  <div class="phead">
-    <span class="eyebrow">Experience</span>
-    <h2>Where I've done the work</h2>
-  </div>
-
-  <div class="xp">
-
-    <article class="card xp__job">
-      <div class="xp__side">
-        <h3>AI Engineer</h3>
-        <div class="xp__co">Castillo Engineering</div>
-        <div class="xp__meta">Orlando, FL</div>
-        <div class="xp__date">May 2024 &ndash; Present</div>
-        <div class="tags"><span class="tag">Gemini Vision</span><span class="tag">OpenAI</span><span class="tag">FastAPI</span><span class="tag">PySpark</span></div>
-      </div>
-      <ul class="xp__list">
-        <li>Built <strong>Castillo Planset QC</strong>, a production VLM pipeline on <strong>OpenAI</strong> and <strong>Gemini Vision</strong> reviewing solar and electrical drawings against <strong>470+ compliance checks</strong> and <strong>18 deterministic NEC rules</strong>, cutting a <strong>5-hour</strong> plan review to minutes.</li>
-        <li>Engineered adaptive tiling and coordinate remapping so <strong>Gemini Vision</strong> reads large-format drawings at native resolution and returns each finding to its exact sheet coordinate.</li>
-        <li>Built <strong>PMO 360</strong> on <strong>FastAPI</strong>, <strong>PostgreSQL</strong>, <strong>React</strong>, and the <strong>OpenAI API</strong>, turning meeting notes into tracked actions and client deliverables across every PM team.</li>
-        <li>Trained a <strong>MobileNetV3</strong> classifier with <strong>OpenCV</strong> preprocessing to route solar-installation photos to <strong>Gemini Vision</strong>, covering a <strong>350+ report/month</strong> permit workflow.</li>
-        <li>Built <strong>PySpark</strong> pipelines that standardize roughly <strong>3 TB</strong> of raw solar-plan data into <strong>Delta Lake</strong> for downstream CV and analytics.</li>
-        <li>Own the company-wide codebase and release workflow: PR reviews, <strong>GitHub</strong> administration, <strong>CI/CD</strong>, and mentoring interns.</li>
-      </ul>
-    </article>
-
-    <article class="card xp__job">
-      <div class="xp__side">
-        <h3>Machine Learning Engineer</h3>
-        <div class="xp__co">Genpact</div>
-        <div class="xp__meta">Remote</div>
-        <div class="xp__date">Feb 2022 &ndash; Aug 2022</div>
-        <div class="tags"><span class="tag">PyTorch</span><span class="tag">YOLOv5</span><span class="tag">U-Net</span></div>
-      </div>
-      <ul class="xp__list">
-        <li>Built a <strong>YOLOv5 + U-Net</strong> pipeline in <strong>PyTorch</strong> and <strong>OpenCV</strong> that localizes teeth and segments periodontal bone on panoramic dental X-rays, deployed across <strong>5 dental clinics</strong>.</li>
-        <li>Trained a <strong>GAN</strong> that cleaned noisy, low-contrast radiographs for reliable downstream detection.</li>
-        <li>Built vehicle-damage pipelines over <strong>100K+ images</strong>, automating dataset versioning with <strong>PySpark</strong> and <strong>Airflow</strong> and promoting models through <strong>MLflow</strong> and <strong>CI/CD</strong>.</li>
-      </ul>
-    </article>
-
-  </div>
-
-  <div class="xp__edu">
-    <div>
-      <h3>M.S. Computer Science &middot; University of Central Florida</h3>
-      <p><strong>Graduate Teaching Assistant.</strong> Advanced AI: Neural Networks, Deep Learning, NLP, Reinforcement Learning.</p>
-    </div>
-    <div class="xp__gpa">
-      <div class="xp__co">GPA 3.7 / 4.0</div>
-      <div class="xp__meta">Class of 2024</div>
-    </div>
-  </div>
-
-  <div class="cta cta--slim">
-    <button class="cta__alt" data-goto="hire">Why you should hire me &rarr;</button>
-  </div>
-</section>
-
-<!-- ═══ 04 · WHY HIRE ME ══════════════════════════════════════ -->
-<section class="panel" id="p-hire">
-  <div class="phead">
-    <span class="eyebrow">Why hire me</span>
-    <h2>What you get when you bring me on</h2>
-    <p>Not adjectives, just the specific things I'm accountable for.</p>
-  </div>
-
-  <div class="reasons">
-    <div class="reason reason--lead">
-      <div class="reason__no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="2.8"/></svg></div>
-      <div>
-        <h3>Computer vision is what I keep coming back to</h3>
-        <p>It's what I chase on weekends and what I ship at work: detection, segmentation, and classification on real-world imagery using YOLOv5, U-Net, MobileNetV3, and DINOv3, all trained, evaluated, and deployed. I improve them the data-centric way: dataset curation, augmentation, and error analysis.</p>
-      </div>
-    </div>
-    <div class="reason">
-      <div class="reason__no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17h18"/><path d="M6.5 17V11a5.5 5.5 0 0 1 11 0v6"/></svg></div>
-      <div>
-        <h3>I wear multiple hats</h3>
-        <p>I've built regression models and fixed IT servers on the same day. Switching roles mid-problem doesn't slow me down. As a one-person AI team, it's the job.</p>
-      </div>
-    </div>
-    <div class="reason">
-      <div class="reason__no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5 22V3"/><path d="M5 4h12l-2 4 2 4H5z"/></svg></div>
-      <div>
-        <h3>I take ideas to the finish line</h3>
-        <p>My experience has given me strong foundations in not just thinking up ideas, but making sure they translate into robust AI models that hold up in the real world.</p>
-      </div>
-    </div>
-    <div class="reason">
-      <div class="reason__no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h5.5M15.5 12H21"/><circle cx="12" cy="12" r="3.5"/></svg></div>
-      <div>
-        <h3>I'm like a Pokémon</h3>
-        <p>I constantly evolve. I love technology and building new things that push my skills to the next level.</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="cta">
-    <p class="cta__t">The work speaks for itself.</p>
     <button class="cta__big" data-goto="projects">
       See my projects
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
     </button>
   </div>
-
 </section>
 
-<!-- ═══ 05 · PROJECTS ═════════════════════════════════════════ -->
+
+<!-- ═══ 03 · PROJECTS ═══════════════════════════════════════════════ -->
 <section class="panel" id="p-projects">
   <div class="projhead">
     <a class="ghlink" href="https://github.com/jayasurya23" target="_blank" rel="noopener">
@@ -711,14 +604,64 @@ img{max-width:100%; display:block}
 
 
   <div class="cta">
-    <button class="cta__big" data-goto="skills">
-      See the skills behind this
+    <button class="cta__big" data-goto="hire">
+      Why you should hire me
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
     </button>
   </div>
 </section>
 
-<!-- ═══ 06 · SKILLS ═══════════════════════════════════════════ -->
+
+<!-- ═══ 04 · WHY HIRE ME ════════════════════════════════════════════ -->
+<section class="panel" id="p-hire">
+  <div class="phead">
+    <span class="eyebrow">Why hire me</span>
+    <h2>What you get when you bring me on</h2>
+    <p>Not adjectives, just the specific things I'm accountable for.</p>
+  </div>
+
+  <div class="reasons">
+    <div class="reason reason--lead">
+      <div class="reason__no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="2.8"/></svg></div>
+      <div>
+        <h3>Computer vision is what I keep coming back to</h3>
+        <p>It's what I chase on weekends and what I ship at work: detection, segmentation, and classification on real-world imagery using YOLOv5, U-Net, MobileNetV3, and DINOv3, all trained, evaluated, and deployed. I improve them the data-centric way: dataset curation, augmentation, and error analysis.</p>
+      </div>
+    </div>
+    <div class="reason">
+      <div class="reason__no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17h18"/><path d="M6.5 17V11a5.5 5.5 0 0 1 11 0v6"/></svg></div>
+      <div>
+        <h3>I wear multiple hats</h3>
+        <p>I've built regression models and fixed IT servers on the same day. Switching roles mid-problem doesn't slow me down. As a one-person AI team, it's the job.</p>
+      </div>
+    </div>
+    <div class="reason">
+      <div class="reason__no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5 22V3"/><path d="M5 4h12l-2 4 2 4H5z"/></svg></div>
+      <div>
+        <h3>I take ideas to the finish line</h3>
+        <p>My experience has given me strong foundations in not just thinking up ideas, but making sure they translate into robust AI models that hold up in the real world.</p>
+      </div>
+    </div>
+    <div class="reason">
+      <div class="reason__no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h5.5M15.5 12H21"/><circle cx="12" cy="12" r="3.5"/></svg></div>
+      <div>
+        <h3>I'm like a Pokémon</h3>
+        <p>I constantly evolve. I love technology and building new things that push my skills to the next level.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="cta">
+    <button class="cta__big" data-goto="skills">
+      See the skills behind this
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </button>
+  </div>
+
+</section>
+
+
+<!-- ═══ 05 · SKILLS ═════════════════════════════════════════════════ -->
 <section class="panel" id="p-skills">
   <div class="phead">
     <span class="eyebrow">Specializations &amp; skills</span>
@@ -765,6 +708,68 @@ img{max-width:100%; display:block}
     </article>
 
   </div>
+
+  <div class="cta cta--slim">
+    <button class="cta__alt" data-goto="experience">See where I've worked &rarr;</button>
+  </div>
+</section>
+
+
+<!-- ═══ 06 · EXPERIENCE ═════════════════════════════════════════════ -->
+<section class="panel" id="p-experience">
+  <div class="phead">
+    <span class="eyebrow">Experience</span>
+    <h2>Where I've done the work</h2>
+  </div>
+
+  <div class="xp">
+
+    <article class="card xp__job">
+      <div class="xp__side">
+        <h3>AI Engineer</h3>
+        <div class="xp__co">Castillo Engineering</div>
+        <div class="xp__meta">Orlando, FL</div>
+        <div class="xp__date">May 2024 &ndash; Present</div>
+        <div class="tags"><span class="tag">Gemini Vision</span><span class="tag">OpenAI</span><span class="tag">FastAPI</span><span class="tag">PySpark</span></div>
+      </div>
+      <ul class="xp__list">
+        <li>Built <strong>Castillo Planset QC</strong>, a production VLM pipeline on <strong>OpenAI</strong> and <strong>Gemini Vision</strong> reviewing solar and electrical drawings against <strong>470+ compliance checks</strong> and <strong>18 deterministic NEC rules</strong>, cutting a <strong>5-hour</strong> plan review to minutes.</li>
+        <li>Engineered adaptive tiling and coordinate remapping so <strong>Gemini Vision</strong> reads large-format drawings at native resolution and returns each finding to its exact sheet coordinate.</li>
+        <li>Built <strong>PMO 360</strong> on <strong>FastAPI</strong>, <strong>PostgreSQL</strong>, <strong>React</strong>, and the <strong>OpenAI API</strong>, turning meeting notes into tracked actions and client deliverables across every PM team.</li>
+        <li>Trained a <strong>MobileNetV3</strong> classifier with <strong>OpenCV</strong> preprocessing to route solar-installation photos to <strong>Gemini Vision</strong>, covering a <strong>350+ report/month</strong> permit workflow.</li>
+        <li>Built <strong>PySpark</strong> pipelines that standardize roughly <strong>3 TB</strong> of raw solar-plan data into <strong>Delta Lake</strong> for downstream CV and analytics.</li>
+        <li>Own the company-wide codebase and release workflow: PR reviews, <strong>GitHub</strong> administration, <strong>CI/CD</strong>, and mentoring interns.</li>
+      </ul>
+    </article>
+
+    <article class="card xp__job">
+      <div class="xp__side">
+        <h3>Machine Learning Engineer</h3>
+        <div class="xp__co">Genpact</div>
+        <div class="xp__meta">Remote</div>
+        <div class="xp__date">Feb 2022 &ndash; Aug 2022</div>
+        <div class="tags"><span class="tag">PyTorch</span><span class="tag">YOLOv5</span><span class="tag">U-Net</span></div>
+      </div>
+      <ul class="xp__list">
+        <li>Built a <strong>YOLOv5 + U-Net</strong> pipeline in <strong>PyTorch</strong> and <strong>OpenCV</strong> that localizes teeth and segments periodontal bone on panoramic dental X-rays, deployed across <strong>5 dental clinics</strong>.</li>
+        <li>Trained a <strong>GAN</strong> that cleaned noisy, low-contrast radiographs for reliable downstream detection.</li>
+        <li>Built vehicle-damage pipelines over <strong>100K+ images</strong>, automating dataset versioning with <strong>PySpark</strong> and <strong>Airflow</strong> and promoting models through <strong>MLflow</strong> and <strong>CI/CD</strong>.</li>
+      </ul>
+    </article>
+
+  </div>
+
+  <div class="xp__edu">
+    <div>
+      <h3>M.S. Computer Science &middot; University of Central Florida</h3>
+      <p><strong>Graduate Teaching Assistant.</strong> Advanced AI: Neural Networks, Deep Learning, NLP, Reinforcement Learning.</p>
+    </div>
+    <div class="xp__gpa">
+      <div class="xp__co">GPA 3.7 / 4.0</div>
+      <div class="xp__meta">Class of 2024</div>
+    </div>
+  </div>
+
 </section>
 
 </div><!-- /stage -->
@@ -856,7 +861,7 @@ img{max-width:100%; display:block}
     }
   })();
 
-  var ORDER = ['home', 'about', 'experience', 'hire', 'projects', 'skills'];
+  var ORDER = ['home', 'about', 'projects', 'hire', 'skills', 'experience'];
   var LABEL = { home:'Home', about:'About', experience:'Experience', hire:'Why Hire Me', skills:'Skills', projects:'Projects' };
 
   var tabs    = Array.prototype.slice.call(document.querySelectorAll('.tab'));

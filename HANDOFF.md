@@ -18,9 +18,15 @@ Live site: **https://jayasurya23.github.io** (GitHub Pages, publishes from `main
 
 ## Site structure
 
-Six tabbed panels, no scrolling on desktop: **Home → About → Experience → Why
-Hire Me → Projects → Skills**. Panels swap in place; `#projects`-style deep
+Six tabbed panels, no scrolling on desktop: **Home → About → Projects → Why
+Hire Me → Skills → Experience**. Panels swap in place; `#projects`-style deep
 links work and so do arrow keys.
+
+The order lives in `ORDER` in the script and must match three other things:
+the tab buttons, the panel order in the DOM (which is what print output
+follows), and the `data-goto` chain — each panel's closing button points at
+the next one. Reordering panels means updating all four, and the last panel
+in the walk carries no hand-off button at all.
 
 Things worth knowing before editing:
 
@@ -38,10 +44,13 @@ Things worth knowing before editing:
   site tracks the OS live. The `<head>` carries a tiny inline script that
   stamps `data-theme` before first paint — keep it inline, an external file
   loads too late and the page flashes white.
-- **Experience is the tightest panel on the site.** Nine bullets plus the
-  education row leave almost no slack at 1440x820, which is why it has no
-  header subtitle and uses a text link instead of the big pill CTA. Adding a
-  bullet means taking height back somewhere else.
+- **Experience and Skills are the tightest panels.** Experience carries nine
+  bullets plus the education row and has no header subtitle as a result; it
+  only fits because, being last in the walk, it needs no hand-off button.
+  Skills carries a full 2x2 card grid plus a hand-off, so it uses the slim
+  `.cta--slim` text link rather than the big pill — the pill costs about 30px
+  more and pushes it past the fold. Adding content to either means taking
+  height back somewhere else.
 - **Sections** are marked with `<!-- ═══ 01 · HOME ═══ -->` style comments.
 - **Photo** is a base64 data URI in the `.pfp, .brand__pic` rule. The source is an
   uncropped 3:2 landscape, so `background-size`/`background-position` are tuned to
