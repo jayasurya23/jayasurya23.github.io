@@ -86,21 +86,27 @@ Bullets follow **XYZ**: did X using tools Y, producing concrete outcome Z.
 
 ## Open items
 
-1. **`resume.tex` is still behind `resume.pdf`.** The PDF was supplied
+1. **`resume.pdf` still calls the product "Castillo Planset QC".** Everywhere
+   editable — the site and `resume.tex` — it is now **Engineering Planset QC**,
+   in both the Experience bullet and the Projects entry. The PDF was supplied
+   already compiled and cannot be edited in place, so its Experience bullet
+   still carries the old name. Fix it whenever the PDF is next regenerated,
+   but read the item below before doing that.
+2. **`resume.tex` is still behind `resume.pdf`.** The PDF was supplied
    already compiled and is a later revision than the LaTeX: it adds an "Areas
    of Specialization" section and a portfolio link, and tightens the summary.
    Those edits exist only in the PDF, so **regenerating `resume.pdf` from
    `resume.tex` today would silently undo them.** Port them into the LaTeX
    before recompiling. (The YOLOv5/YOLOv8 disagreement is settled: YOLOv5 is
    correct and every file now says so.)
-2. **BLIP's LLM is unnamed.** Both the site and the resume say "LLM layer" /
+3. **BLIP's LLM is unnamed.** Both the site and the resume say "LLM layer" /
    "LLM search" because the specific model was never confirmed. Name it.
-3. **Dropped skill keywords.** The site's Skills panel carries the full list,
+4. **Dropped skill keywords.** The site's Skills panel carries the full list,
    but the resume's one-line specializations section still omits scikit-learn,
    XGBoost, Docker, SageMaker, Bedrock, Vertex AI, RAG, React/TypeScript,
    SQLAlchemy, and Entra ID. Consider a compact "Also:" line there if
    keyword-filtered screens are a concern.
-4. **Repo names don't match project names.** The site calls them SecondSight and
+5. **Repo names don't match project names.** The site calls them SecondSight and
    RootCause; the GitHub repos are still `Warning-system-for-automobile-drivers`
    and `Dental-X-Ray-Detection`. Renaming the repos would fix the mismatch
    (old URLs auto-redirect).
